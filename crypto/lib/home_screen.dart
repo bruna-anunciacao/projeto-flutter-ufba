@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crypto/crypto_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -53,28 +54,35 @@ class _HomeScreenState extends State<HomeScreen> {
           final image = crypto['image'];
           final price = crypto['current_price'];
           final change = crypto['price_change_percentage_24h'];
-          return ListTile(
-              textColor: Colors.white,
-              leading: Image.network(image),
-              title: Text(
-                '$name - ($symbol)',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CryptoDetailsScreen(crypto: crypto),
                 ),
-              ),
-              subtitle: Text(
-                'Preço: R\$ $price\nVariação: $change%',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
+              );
+            },
+            child: ListTile(
+                textColor: Colors.white,
+                leading: Image.network(image),
+                title: Text(
+                  '$name - $symbol',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              trailing: Icon(
-                change > 0 ? Icons.arrow_upward : Icons.arrow_downward,
-                color: change > 0 ? Colors.green : Colors.red,
-              ));
+                trailing: Text(
+                  'R\$ $price',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                )),
+          );
         },
       ),
     );
