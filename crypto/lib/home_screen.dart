@@ -34,26 +34,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF012A4A),
+      backgroundColor: const Color(0xFF012A4A),
       appBar: AppBar(
-        title: Text('Crypto'),
+        title: const Text('Crypto'),
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        elevation: 0,
+        elevation: 10,
         foregroundColor: Colors.white,
       ),
       body: ListView.builder(
         itemCount: data.length,
         itemBuilder: (context, index) {
           if (index >= data.length) {
-            return CircularProgressIndicator(); // ou qualquer outro widget de carregamento
+            return const CircularProgressIndicator(); // ou qualquer outro widget de carregamento
           }
           final crypto = data[index];
           final name = crypto['name'];
           final symbol = crypto['symbol'];
           final image = crypto['image'];
           final price = crypto['current_price'];
-          final change = crypto['price_change_percentage_24h'];
+          // final change = crypto['price_change_percentage_24h'];
 
           return GestureDetector(
             onTap: () {
@@ -64,12 +64,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               );
             },
+            child: Container(
+              decoration: BoxDecoration(
+              color: const Color.fromARGB(42,111,151, 151), // Cor de destaque
+              borderRadius: BorderRadius.circular(8.0), // Borda arredondada
+            ),
+            margin: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: ListTile(
                 textColor: Colors.white,
+                // backgroundColor: Color.fromARGB(255, 3, 29, 49),
                 leading: Image.network(image),
                 title: Text(
                   '$name - $symbol',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -77,11 +85,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 trailing: Text(
                   'R\$ $price',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                   ),
                 )),
+            )
           );
         },
       ),
